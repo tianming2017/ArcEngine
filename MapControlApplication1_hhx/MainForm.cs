@@ -4216,54 +4216,54 @@ namespace MapControlApplication1_hhx
         //此外  用fill之后的DEM进行 流量计算 会卡很久??
         private void btn_FlowAccumulation_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    this.Cursor = Cursors.WaitCursor;
-            //    int layerIndex = cmb_OutFlowDirectionRaster.SelectedIndex;
-            //    ILayer layer = axMapControl1.Map.get_Layer(layerIndex);
-            //    if (layer is IRasterLayer)
-            //    {
-            //        IRasterLayer rstLayer = layer as IRasterLayer;
-            //        IRaster raster = rstLayer.Raster;
-            //        IGeoDataset geoDataset = raster as IGeoDataset;
-            //        IHydrologyOp2 hydrologyOp = new RasterHydrologyOpClass();
-            //        object missing = Type.Missing;
-            //        IGeoDataset pGeoOutput = hydrologyOp.FlowAccumulation(geoDataset, missing);
-            //        //save
-            //        //DeleteDir(@"d:\hhx\hydrology");
-            //        if (File.Exists(@"d:\hhx\hydrology\flowAccumulation.tif"))
-            //        {
-            //            File.Delete(@"d:\hhx\hydrology\flowAccumulation.tif");
-            //        }
+            try
+            {
+                this.Cursor = Cursors.WaitCursor;
+                int layerIndex = cmb_OutFlowDirectionRaster.SelectedIndex;
+                ILayer layer = axMapControl1.Map.get_Layer(layerIndex);
+                if (layer is IRasterLayer)
+                {
+                    IRasterLayer rstLayer = layer as IRasterLayer;
+                    IRaster raster = rstLayer.Raster;
+                    IGeoDataset geoDataset = raster as IGeoDataset;
+                    IHydrologyOp2 hydrologyOp = new RasterHydrologyOpClass();
+                    object missing = Type.Missing;
+                    IGeoDataset pGeoOutput = hydrologyOp.FlowAccumulation(geoDataset, missing);
+                    //save
+                    //DeleteDir(@"d:\hhx\hydrology");
+                    if (File.Exists(@"d:\hhx\hydrology\flowAccumulation.tif"))
+                    {
+                        File.Delete(@"d:\hhx\hydrology\flowAccumulation.tif");
+                    }
 
-            //        ISaveAs saveAs = pGeoOutput as ISaveAs;
-            //        saveAs.SaveAs(@"d:\hhx\hydrology\flowAccumulation.tif", null, "TIFF");
+                    ISaveAs saveAs = pGeoOutput as ISaveAs;
+                    saveAs.SaveAs(@"d:\hhx\hydrology\flowAccumulation.tif", null, "TIFF");
 
-            //        //view
-            //        IRasterLayer resultRstLayer = new RasterLayerClass();
-            //        resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
-            //        ILayer resultLayer = resultRstLayer as ILayer;
-            //        resultLayer.Name = "FlowAccumulation";
-            //        axMapControl1.Map.AddLayer(resultLayer);
-            //        //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
-            //        axMapControl1.ActiveView.Refresh();
-            //        axTOCControl1.Update();
-            //        iniCmbItems();
+                    //view
+                    IRasterLayer resultRstLayer = new RasterLayerClass();
+                    resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
+                    ILayer resultLayer = resultRstLayer as ILayer;
+                    resultLayer.Name = "FlowAccumulation";
+                    axMapControl1.Map.AddLayer(resultLayer);
+                    //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
+                    axMapControl1.ActiveView.Refresh();
+                    axTOCControl1.Update();
+                    iniCmbItems();
 
-            //    }
+                }
 
-            //}
-            //catch (System.Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            //finally
-            //{
-            //    this.Cursor = Cursors.Default;
-            //}
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                this.Cursor = Cursors.Default;
+            }
 
 
-            FlowAccumulation2();
+            //FlowAccumulation2();
 
         }
 

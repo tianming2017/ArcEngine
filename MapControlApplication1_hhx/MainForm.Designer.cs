@@ -197,11 +197,32 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.btn_StreamToFeature = new System.Windows.Forms.Button();
+            this.label51 = new System.Windows.Forms.Label();
+            this.cmb_FlowDirectionToFeature = new System.Windows.Forms.ComboBox();
+            this.cmb_streamRasterLayer = new System.Windows.Forms.ComboBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
+            this.txb_FillZ = new System.Windows.Forms.TextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.btn_Fill = new System.Windows.Forms.Button();
+            this.cmb_FillLayer = new System.Windows.Forms.ComboBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.btn_Sink = new System.Windows.Forms.Button();
+            this.cmb_SinkLayer = new System.Windows.Forms.ComboBox();
+            this.label45 = new System.Windows.Forms.Label();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.txb_StreamLimit = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.btn_StreamNet = new System.Windows.Forms.Button();
+            this.cmb_StreamNetLayer = new System.Windows.Forms.ComboBox();
+            this.label48 = new System.Windows.Forms.Label();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.btn_FlowAccumulation = new System.Windows.Forms.Button();
-            this.cmb_OutFlowDirectionRaster = new System.Windows.Forms.ComboBox();
             this.label44 = new System.Windows.Forms.Label();
+            this.cmb_OutFlowDirectionRaster = new System.Windows.Forms.ComboBox();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
             this.btn_FlowDirection = new System.Windows.Forms.Button();
             this.cmb_FlowDirectionLayer = new System.Windows.Forms.ComboBox();
@@ -211,27 +232,6 @@
             this.deleteLayer = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_FromColor = new System.Windows.Forms.ColorDialog();
             this.cd_ToColor = new System.Windows.Forms.ColorDialog();
-            this.groupBox22 = new System.Windows.Forms.GroupBox();
-            this.label45 = new System.Windows.Forms.Label();
-            this.cmb_SinkLayer = new System.Windows.Forms.ComboBox();
-            this.btn_Sink = new System.Windows.Forms.Button();
-            this.groupBox23 = new System.Windows.Forms.GroupBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.cmb_FillLayer = new System.Windows.Forms.ComboBox();
-            this.btn_Fill = new System.Windows.Forms.Button();
-            this.label47 = new System.Windows.Forms.Label();
-            this.txb_FillZ = new System.Windows.Forms.TextBox();
-            this.label48 = new System.Windows.Forms.Label();
-            this.cmb_StreamNetLayer = new System.Windows.Forms.ComboBox();
-            this.btn_StreamNet = new System.Windows.Forms.Button();
-            this.label49 = new System.Windows.Forms.Label();
-            this.txb_StreamLimit = new System.Windows.Forms.TextBox();
-            this.groupBox24 = new System.Windows.Forms.GroupBox();
-            this.label50 = new System.Windows.Forms.Label();
-            this.cmb_streamRasterLayer = new System.Windows.Forms.ComboBox();
-            this.cmb_FlowDirectionToFeature = new System.Windows.Forms.ComboBox();
-            this.label51 = new System.Windows.Forms.Label();
-            this.btn_StreamToFeature = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axMapControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
@@ -268,13 +268,13 @@
             this.groupBox14.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.groupBox24.SuspendLayout();
+            this.groupBox23.SuspendLayout();
+            this.groupBox22.SuspendLayout();
             this.groupBox21.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox19.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
-            this.groupBox22.SuspendLayout();
-            this.groupBox23.SuspendLayout();
-            this.groupBox24.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -2019,6 +2019,171 @@
             this.tabPage5.Text = "水文分析";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // groupBox24
+            // 
+            this.groupBox24.Controls.Add(this.btn_StreamToFeature);
+            this.groupBox24.Controls.Add(this.label51);
+            this.groupBox24.Controls.Add(this.cmb_FlowDirectionToFeature);
+            this.groupBox24.Controls.Add(this.cmb_streamRasterLayer);
+            this.groupBox24.Controls.Add(this.label50);
+            this.groupBox24.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox24.Location = new System.Drawing.Point(7, 402);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(289, 87);
+            this.groupBox24.TabIndex = 5;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "栅格河网矢量化";
+            // 
+            // btn_StreamToFeature
+            // 
+            this.btn_StreamToFeature.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn_StreamToFeature.Location = new System.Drawing.Point(200, 23);
+            this.btn_StreamToFeature.Name = "btn_StreamToFeature";
+            this.btn_StreamToFeature.Size = new System.Drawing.Size(75, 23);
+            this.btn_StreamToFeature.TabIndex = 12;
+            this.btn_StreamToFeature.Text = "矢量化";
+            this.btn_StreamToFeature.UseVisualStyleBackColor = true;
+            this.btn_StreamToFeature.Click += new System.EventHandler(this.btn_StreamToFeature_Click);
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label51.Location = new System.Drawing.Point(17, 57);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(29, 12);
+            this.label51.TabIndex = 11;
+            this.label51.Text = "流向";
+            // 
+            // cmb_FlowDirectionToFeature
+            // 
+            this.cmb_FlowDirectionToFeature.FormattingEnabled = true;
+            this.cmb_FlowDirectionToFeature.Location = new System.Drawing.Point(65, 54);
+            this.cmb_FlowDirectionToFeature.Name = "cmb_FlowDirectionToFeature";
+            this.cmb_FlowDirectionToFeature.Size = new System.Drawing.Size(121, 20);
+            this.cmb_FlowDirectionToFeature.TabIndex = 10;
+            // 
+            // cmb_streamRasterLayer
+            // 
+            this.cmb_streamRasterLayer.FormattingEnabled = true;
+            this.cmb_streamRasterLayer.Location = new System.Drawing.Point(65, 26);
+            this.cmb_streamRasterLayer.Name = "cmb_streamRasterLayer";
+            this.cmb_streamRasterLayer.Size = new System.Drawing.Size(121, 20);
+            this.cmb_streamRasterLayer.TabIndex = 9;
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label50.Location = new System.Drawing.Point(8, 29);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(53, 12);
+            this.label50.TabIndex = 0;
+            this.label50.Text = "栅格河网";
+            // 
+            // groupBox23
+            // 
+            this.groupBox23.Controls.Add(this.txb_FillZ);
+            this.groupBox23.Controls.Add(this.label47);
+            this.groupBox23.Controls.Add(this.btn_Fill);
+            this.groupBox23.Controls.Add(this.cmb_FillLayer);
+            this.groupBox23.Controls.Add(this.label46);
+            this.groupBox23.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox23.Location = new System.Drawing.Point(7, 136);
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.Size = new System.Drawing.Size(289, 90);
+            this.groupBox23.TabIndex = 4;
+            this.groupBox23.TabStop = false;
+            this.groupBox23.Text = "填洼(Fill)";
+            // 
+            // txb_FillZ
+            // 
+            this.txb_FillZ.Location = new System.Drawing.Point(66, 61);
+            this.txb_FillZ.Name = "txb_FillZ";
+            this.txb_FillZ.Size = new System.Drawing.Size(120, 21);
+            this.txb_FillZ.TabIndex = 10;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label47.Location = new System.Drawing.Point(16, 64);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(35, 12);
+            this.label47.TabIndex = 9;
+            this.label47.Text = "Z阈值";
+            // 
+            // btn_Fill
+            // 
+            this.btn_Fill.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn_Fill.Location = new System.Drawing.Point(200, 27);
+            this.btn_Fill.Name = "btn_Fill";
+            this.btn_Fill.Size = new System.Drawing.Size(75, 23);
+            this.btn_Fill.TabIndex = 2;
+            this.btn_Fill.Text = "填洼";
+            this.btn_Fill.UseVisualStyleBackColor = true;
+            this.btn_Fill.Click += new System.EventHandler(this.btn_Fill_Click);
+            // 
+            // cmb_FillLayer
+            // 
+            this.cmb_FillLayer.FormattingEnabled = true;
+            this.cmb_FillLayer.Location = new System.Drawing.Point(65, 29);
+            this.cmb_FillLayer.Name = "cmb_FillLayer";
+            this.cmb_FillLayer.Size = new System.Drawing.Size(121, 20);
+            this.cmb_FillLayer.TabIndex = 1;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label46.Location = new System.Drawing.Point(17, 32);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(29, 12);
+            this.label46.TabIndex = 0;
+            this.label46.Text = "流向";
+            // 
+            // groupBox22
+            // 
+            this.groupBox22.Controls.Add(this.btn_Sink);
+            this.groupBox22.Controls.Add(this.cmb_SinkLayer);
+            this.groupBox22.Controls.Add(this.label45);
+            this.groupBox22.ForeColor = System.Drawing.Color.Blue;
+            this.groupBox22.Location = new System.Drawing.Point(6, 76);
+            this.groupBox22.Name = "groupBox22";
+            this.groupBox22.Size = new System.Drawing.Size(290, 56);
+            this.groupBox22.TabIndex = 3;
+            this.groupBox22.TabStop = false;
+            this.groupBox22.Text = "汇(Sink)";
+            // 
+            // btn_Sink
+            // 
+            this.btn_Sink.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn_Sink.Location = new System.Drawing.Point(201, 21);
+            this.btn_Sink.Name = "btn_Sink";
+            this.btn_Sink.Size = new System.Drawing.Size(75, 23);
+            this.btn_Sink.TabIndex = 2;
+            this.btn_Sink.Text = "汇";
+            this.btn_Sink.UseVisualStyleBackColor = true;
+            this.btn_Sink.Click += new System.EventHandler(this.btn_Sink_Click);
+            // 
+            // cmb_SinkLayer
+            // 
+            this.cmb_SinkLayer.FormattingEnabled = true;
+            this.cmb_SinkLayer.Location = new System.Drawing.Point(67, 24);
+            this.cmb_SinkLayer.Name = "cmb_SinkLayer";
+            this.cmb_SinkLayer.Size = new System.Drawing.Size(121, 20);
+            this.cmb_SinkLayer.TabIndex = 1;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label45.Location = new System.Drawing.Point(18, 27);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(29, 12);
+            this.label45.TabIndex = 0;
+            this.label45.Text = "流向";
+            // 
             // groupBox21
             // 
             this.groupBox21.Controls.Add(this.txb_StreamLimit);
@@ -2026,6 +2191,7 @@
             this.groupBox21.Controls.Add(this.btn_StreamNet);
             this.groupBox21.Controls.Add(this.cmb_StreamNetLayer);
             this.groupBox21.Controls.Add(this.label48);
+            this.groupBox21.ForeColor = System.Drawing.Color.Blue;
             this.groupBox21.Location = new System.Drawing.Point(7, 296);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(291, 100);
@@ -2033,11 +2199,58 @@
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "识别河流网络";
             // 
+            // txb_StreamLimit
+            // 
+            this.txb_StreamLimit.Location = new System.Drawing.Point(65, 60);
+            this.txb_StreamLimit.Name = "txb_StreamLimit";
+            this.txb_StreamLimit.Size = new System.Drawing.Size(121, 21);
+            this.txb_StreamLimit.TabIndex = 4;
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label49.Location = new System.Drawing.Point(6, 63);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(53, 12);
+            this.label49.TabIndex = 3;
+            this.label49.Text = "流量阈值";
+            // 
+            // btn_StreamNet
+            // 
+            this.btn_StreamNet.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btn_StreamNet.Location = new System.Drawing.Point(200, 28);
+            this.btn_StreamNet.Name = "btn_StreamNet";
+            this.btn_StreamNet.Size = new System.Drawing.Size(75, 23);
+            this.btn_StreamNet.TabIndex = 2;
+            this.btn_StreamNet.Text = "河流网络";
+            this.btn_StreamNet.UseVisualStyleBackColor = true;
+            this.btn_StreamNet.Click += new System.EventHandler(this.btn_StreamNet_Click);
+            // 
+            // cmb_StreamNetLayer
+            // 
+            this.cmb_StreamNetLayer.FormattingEnabled = true;
+            this.cmb_StreamNetLayer.Location = new System.Drawing.Point(65, 25);
+            this.cmb_StreamNetLayer.Name = "cmb_StreamNetLayer";
+            this.cmb_StreamNetLayer.Size = new System.Drawing.Size(121, 20);
+            this.cmb_StreamNetLayer.TabIndex = 1;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label48.Location = new System.Drawing.Point(16, 28);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(29, 12);
+            this.label48.TabIndex = 0;
+            this.label48.Text = "流量";
+            // 
             // groupBox20
             // 
             this.groupBox20.Controls.Add(this.btn_FlowAccumulation);
             this.groupBox20.Controls.Add(this.label44);
             this.groupBox20.Controls.Add(this.cmb_OutFlowDirectionRaster);
+            this.groupBox20.ForeColor = System.Drawing.Color.Blue;
             this.groupBox20.Location = new System.Drawing.Point(5, 233);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(291, 60);
@@ -2047,6 +2260,7 @@
             // 
             // btn_FlowAccumulation
             // 
+            this.btn_FlowAccumulation.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btn_FlowAccumulation.Location = new System.Drawing.Point(201, 26);
             this.btn_FlowAccumulation.Name = "btn_FlowAccumulation";
             this.btn_FlowAccumulation.Size = new System.Drawing.Size(75, 23);
@@ -2054,6 +2268,16 @@
             this.btn_FlowAccumulation.Text = "计算流量";
             this.btn_FlowAccumulation.UseVisualStyleBackColor = true;
             this.btn_FlowAccumulation.Click += new System.EventHandler(this.btn_FlowAccumulation_Click);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label44.Location = new System.Drawing.Point(18, 33);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(29, 12);
+            this.label44.TabIndex = 0;
+            this.label44.Text = "流向";
             // 
             // cmb_OutFlowDirectionRaster
             // 
@@ -2063,20 +2287,12 @@
             this.cmb_OutFlowDirectionRaster.Size = new System.Drawing.Size(121, 20);
             this.cmb_OutFlowDirectionRaster.TabIndex = 1;
             // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(18, 33);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(29, 12);
-            this.label44.TabIndex = 0;
-            this.label44.Text = "流向";
-            // 
             // groupBox19
             // 
             this.groupBox19.Controls.Add(this.btn_FlowDirection);
             this.groupBox19.Controls.Add(this.cmb_FlowDirectionLayer);
             this.groupBox19.Controls.Add(this.label43);
+            this.groupBox19.ForeColor = System.Drawing.Color.Blue;
             this.groupBox19.Location = new System.Drawing.Point(6, 10);
             this.groupBox19.Name = "groupBox19";
             this.groupBox19.Size = new System.Drawing.Size(293, 63);
@@ -2086,6 +2302,7 @@
             // 
             // btn_FlowDirection
             // 
+            this.btn_FlowDirection.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btn_FlowDirection.Location = new System.Drawing.Point(201, 27);
             this.btn_FlowDirection.Name = "btn_FlowDirection";
             this.btn_FlowDirection.Size = new System.Drawing.Size(75, 23);
@@ -2105,6 +2322,7 @@
             // label43
             // 
             this.label43.AutoSize = true;
+            this.label43.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label43.Location = new System.Drawing.Point(18, 27);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(23, 12);
@@ -2132,203 +2350,6 @@
             this.deleteLayer.Size = new System.Drawing.Size(160, 22);
             this.deleteLayer.Text = "删除图层";
             this.deleteLayer.Click += new System.EventHandler(this.deleteLayer_Click);
-            // 
-            // groupBox22
-            // 
-            this.groupBox22.Controls.Add(this.btn_Sink);
-            this.groupBox22.Controls.Add(this.cmb_SinkLayer);
-            this.groupBox22.Controls.Add(this.label45);
-            this.groupBox22.Location = new System.Drawing.Point(6, 76);
-            this.groupBox22.Name = "groupBox22";
-            this.groupBox22.Size = new System.Drawing.Size(290, 56);
-            this.groupBox22.TabIndex = 3;
-            this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "汇(Sink)";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(18, 27);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(29, 12);
-            this.label45.TabIndex = 0;
-            this.label45.Text = "流向";
-            // 
-            // cmb_SinkLayer
-            // 
-            this.cmb_SinkLayer.FormattingEnabled = true;
-            this.cmb_SinkLayer.Location = new System.Drawing.Point(67, 24);
-            this.cmb_SinkLayer.Name = "cmb_SinkLayer";
-            this.cmb_SinkLayer.Size = new System.Drawing.Size(121, 20);
-            this.cmb_SinkLayer.TabIndex = 1;
-            // 
-            // btn_Sink
-            // 
-            this.btn_Sink.Location = new System.Drawing.Point(201, 21);
-            this.btn_Sink.Name = "btn_Sink";
-            this.btn_Sink.Size = new System.Drawing.Size(75, 23);
-            this.btn_Sink.TabIndex = 2;
-            this.btn_Sink.Text = "汇";
-            this.btn_Sink.UseVisualStyleBackColor = true;
-            this.btn_Sink.Click += new System.EventHandler(this.btn_Sink_Click);
-            // 
-            // groupBox23
-            // 
-            this.groupBox23.Controls.Add(this.txb_FillZ);
-            this.groupBox23.Controls.Add(this.label47);
-            this.groupBox23.Controls.Add(this.btn_Fill);
-            this.groupBox23.Controls.Add(this.cmb_FillLayer);
-            this.groupBox23.Controls.Add(this.label46);
-            this.groupBox23.Location = new System.Drawing.Point(7, 136);
-            this.groupBox23.Name = "groupBox23";
-            this.groupBox23.Size = new System.Drawing.Size(289, 90);
-            this.groupBox23.TabIndex = 4;
-            this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "填洼(Fill)";
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(17, 32);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(29, 12);
-            this.label46.TabIndex = 0;
-            this.label46.Text = "流向";
-            // 
-            // cmb_FillLayer
-            // 
-            this.cmb_FillLayer.FormattingEnabled = true;
-            this.cmb_FillLayer.Location = new System.Drawing.Point(65, 29);
-            this.cmb_FillLayer.Name = "cmb_FillLayer";
-            this.cmb_FillLayer.Size = new System.Drawing.Size(121, 20);
-            this.cmb_FillLayer.TabIndex = 1;
-            // 
-            // btn_Fill
-            // 
-            this.btn_Fill.Location = new System.Drawing.Point(200, 27);
-            this.btn_Fill.Name = "btn_Fill";
-            this.btn_Fill.Size = new System.Drawing.Size(75, 23);
-            this.btn_Fill.TabIndex = 2;
-            this.btn_Fill.Text = "填洼";
-            this.btn_Fill.UseVisualStyleBackColor = true;
-            this.btn_Fill.Click += new System.EventHandler(this.btn_Fill_Click);
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(16, 64);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(35, 12);
-            this.label47.TabIndex = 9;
-            this.label47.Text = "Z阈值";
-            // 
-            // txb_FillZ
-            // 
-            this.txb_FillZ.Location = new System.Drawing.Point(66, 61);
-            this.txb_FillZ.Name = "txb_FillZ";
-            this.txb_FillZ.Size = new System.Drawing.Size(120, 21);
-            this.txb_FillZ.TabIndex = 10;
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(16, 28);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(29, 12);
-            this.label48.TabIndex = 0;
-            this.label48.Text = "流量";
-            // 
-            // cmb_StreamNetLayer
-            // 
-            this.cmb_StreamNetLayer.FormattingEnabled = true;
-            this.cmb_StreamNetLayer.Location = new System.Drawing.Point(65, 25);
-            this.cmb_StreamNetLayer.Name = "cmb_StreamNetLayer";
-            this.cmb_StreamNetLayer.Size = new System.Drawing.Size(121, 20);
-            this.cmb_StreamNetLayer.TabIndex = 1;
-            // 
-            // btn_StreamNet
-            // 
-            this.btn_StreamNet.Location = new System.Drawing.Point(200, 28);
-            this.btn_StreamNet.Name = "btn_StreamNet";
-            this.btn_StreamNet.Size = new System.Drawing.Size(75, 23);
-            this.btn_StreamNet.TabIndex = 2;
-            this.btn_StreamNet.Text = "河流网络";
-            this.btn_StreamNet.UseVisualStyleBackColor = true;
-            this.btn_StreamNet.Click += new System.EventHandler(this.btn_StreamNet_Click);
-            // 
-            // label49
-            // 
-            this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(6, 63);
-            this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(53, 12);
-            this.label49.TabIndex = 3;
-            this.label49.Text = "流量阈值";
-            // 
-            // txb_StreamLimit
-            // 
-            this.txb_StreamLimit.Location = new System.Drawing.Point(65, 60);
-            this.txb_StreamLimit.Name = "txb_StreamLimit";
-            this.txb_StreamLimit.Size = new System.Drawing.Size(121, 21);
-            this.txb_StreamLimit.TabIndex = 4;
-            // 
-            // groupBox24
-            // 
-            this.groupBox24.Controls.Add(this.btn_StreamToFeature);
-            this.groupBox24.Controls.Add(this.label51);
-            this.groupBox24.Controls.Add(this.cmb_FlowDirectionToFeature);
-            this.groupBox24.Controls.Add(this.cmb_streamRasterLayer);
-            this.groupBox24.Controls.Add(this.label50);
-            this.groupBox24.Location = new System.Drawing.Point(7, 402);
-            this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(289, 87);
-            this.groupBox24.TabIndex = 5;
-            this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "栅格河网矢量化";
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.Location = new System.Drawing.Point(8, 29);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(53, 12);
-            this.label50.TabIndex = 0;
-            this.label50.Text = "栅格河网";
-            // 
-            // cmb_streamRasterLayer
-            // 
-            this.cmb_streamRasterLayer.FormattingEnabled = true;
-            this.cmb_streamRasterLayer.Location = new System.Drawing.Point(65, 26);
-            this.cmb_streamRasterLayer.Name = "cmb_streamRasterLayer";
-            this.cmb_streamRasterLayer.Size = new System.Drawing.Size(121, 20);
-            this.cmb_streamRasterLayer.TabIndex = 9;
-            // 
-            // cmb_FlowDirectionToFeature
-            // 
-            this.cmb_FlowDirectionToFeature.FormattingEnabled = true;
-            this.cmb_FlowDirectionToFeature.Location = new System.Drawing.Point(65, 54);
-            this.cmb_FlowDirectionToFeature.Name = "cmb_FlowDirectionToFeature";
-            this.cmb_FlowDirectionToFeature.Size = new System.Drawing.Size(121, 20);
-            this.cmb_FlowDirectionToFeature.TabIndex = 10;
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Location = new System.Drawing.Point(17, 57);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(29, 12);
-            this.label51.TabIndex = 11;
-            this.label51.Text = "流向";
-            // 
-            // btn_StreamToFeature
-            // 
-            this.btn_StreamToFeature.Location = new System.Drawing.Point(200, 23);
-            this.btn_StreamToFeature.Name = "btn_StreamToFeature";
-            this.btn_StreamToFeature.Size = new System.Drawing.Size(75, 23);
-            this.btn_StreamToFeature.TabIndex = 12;
-            this.btn_StreamToFeature.Text = "矢量化";
-            this.btn_StreamToFeature.UseVisualStyleBackColor = true;
-            this.btn_StreamToFeature.Click += new System.EventHandler(this.btn_StreamToFeature_Click);
             // 
             // MainForm
             // 
@@ -2407,6 +2428,12 @@
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.tabPage5.ResumeLayout(false);
+            this.groupBox24.ResumeLayout(false);
+            this.groupBox24.PerformLayout();
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
+            this.groupBox22.ResumeLayout(false);
+            this.groupBox22.PerformLayout();
             this.groupBox21.ResumeLayout(false);
             this.groupBox21.PerformLayout();
             this.groupBox20.ResumeLayout(false);
@@ -2414,12 +2441,6 @@
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
-            this.groupBox22.ResumeLayout(false);
-            this.groupBox22.PerformLayout();
-            this.groupBox23.ResumeLayout(false);
-            this.groupBox23.PerformLayout();
-            this.groupBox24.ResumeLayout(false);
-            this.groupBox24.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
