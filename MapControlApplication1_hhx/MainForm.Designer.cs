@@ -2138,9 +2138,9 @@
             this.label46.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label46.Location = new System.Drawing.Point(17, 32);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(29, 12);
+            this.label46.Size = new System.Drawing.Size(23, 12);
             this.label46.TabIndex = 0;
-            this.label46.Text = "流向";
+            this.label46.Text = "DEM";
             // 
             // groupBox22
             // 

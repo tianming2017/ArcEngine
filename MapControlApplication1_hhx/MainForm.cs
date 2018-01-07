@@ -4267,6 +4267,7 @@ namespace MapControlApplication1_hhx
 
         }
 
+        //输入流向 计算汇 输出的图像属性表中是 汇的编号 从1开始编号 
         private void btn_Sink_Click(object sender, EventArgs e)
         {
             try
@@ -4284,19 +4285,19 @@ namespace MapControlApplication1_hhx
                     IGeoDataset pGeoOutput = hydrologyOp.Sink(geoDataset);
                     //save
                     //DeleteDir(@"d:\hhx\hydrology");
-                    if (File.Exists(@"d:\hhx\hydrology\sinkFlowDirection.tif"))
+                    if (File.Exists(@"d:\hhx\hydrology\sink.tif"))
                     {
-                        File.Delete(@"d:\hhx\hydrology\sinkFlowDirection.tif");
+                        File.Delete(@"d:\hhx\hydrology\sink.tif");
                     }
 
                     ISaveAs saveAs = pGeoOutput as ISaveAs;
-                    saveAs.SaveAs(@"d:\hhx\hydrology\sinkFlowDirection.tif", null, "TIFF");
+                    saveAs.SaveAs(@"d:\hhx\hydrology\sink.tif", null, "TIFF");
 
                     //view
                     IRasterLayer resultRstLayer = new RasterLayerClass();
                     resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
                     ILayer resultLayer = resultRstLayer as ILayer;
-                    resultLayer.Name = "sinkFlowDirection";
+                    resultLayer.Name = "sink";
                     axMapControl1.Map.AddLayer(resultLayer);
                     //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
                     axMapControl1.ActiveView.Refresh();
@@ -4317,6 +4318,8 @@ namespace MapControlApplication1_hhx
 
         }
 
+        //输入DEM 以及Z阈值(凹陷点与倾斜点的高度差)(10左右差不多了吧) 输出填洼之后的DEM
+        //此操作很费时间
         private void btn_Fill_Click(object sender, EventArgs e)
         {
             try
@@ -4355,19 +4358,19 @@ namespace MapControlApplication1_hhx
                  
                     //save
                     //DeleteDir(@"d:\hhx\hydrology");
-                    if (File.Exists(@"d:\hhx\hydrology\fillFlowDirection.tif"))
+                    if (File.Exists(@"d:\hhx\hydrology\fillDEM.tif"))
                     {
-                        File.Delete(@"d:\hhx\hydrology\fillFlowDirection.tif");
+                        File.Delete(@"d:\hhx\hydrology\fillDEM.tif");
                     }
 
                     ISaveAs saveAs = pGeoOutput as ISaveAs;
-                    saveAs.SaveAs(@"d:\hhx\hydrology\fillFlowDirection.tif", null, "TIFF");
+                    saveAs.SaveAs(@"d:\hhx\hydrology\fillDEM.tif", null, "TIFF");
 
                     //view
                     IRasterLayer resultRstLayer = new RasterLayerClass();
                     resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
                     ILayer resultLayer = resultRstLayer as ILayer;
-                    resultLayer.Name = "fillFlowDirection";
+                    resultLayer.Name = "fillDEM";
                     axMapControl1.Map.AddLayer(resultLayer);
                     //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
                     axMapControl1.ActiveView.Refresh();
@@ -4388,6 +4391,7 @@ namespace MapControlApplication1_hhx
 
         }
 
+        //输入流量 以及 流量阈值 只有大于阈值的才形成河流网络
         private void btn_StreamNet_Click(object sender, EventArgs e)
         {
             try
@@ -4563,7 +4567,7 @@ namespace MapControlApplication1_hhx
             //MessageBox.Show("转换成功");
         }
 
-        //不可用
+        //!!!不可用!!!
         private void FlowAccumulation2()
         { 
             
