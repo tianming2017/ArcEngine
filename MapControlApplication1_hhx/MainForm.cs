@@ -4180,18 +4180,40 @@ namespace MapControlApplication1_hhx
                     IGeoDataset pGeoOutput = hydrologyOp.FlowDirection(geoDataset, false, false);//default
                     //save
                     //DeleteDir(@"d:\hhx\hydrology");
-                    if (File.Exists(@"d:\hhx\hydrology\flowDirection.tif"))
+                    string rootPath = @"d:\hhx\hydrology";
+                    string fileName = "flowDirection";
+                     //取名后缀+时间(年 月 日 时 分 秒) 除非时间坏了或者多台机器时间不一致 不然应该不会重
+                    string nowTime = System.DateTime.Now.ToLocalTime().ToString();
+                    string nowtimestr = System.Text.RegularExpressions.Regex.Replace(nowTime, @"[^0-9]+", "");
+                    string uniqueFileTime = fileName + nowtimestr;
+                    string uniqueFileTimeWithSuffix = uniqueFileTime + ".tif";
+                    string savePath = System.IO.Path.Combine(rootPath, uniqueFileTimeWithSuffix);
+                    if (File.Exists(savePath))
                     {
-                        File.Delete(@"d:\hhx\hydrology\flowDirection.tif");
+                        File.Delete(savePath);
                     }
                     ISaveAs saveAs = pGeoOutput as ISaveAs;
-                    saveAs.SaveAs(@"d:\hhx\hydrology\flowDirection.tif", null, "TIFF");
+                    saveAs.SaveAs(savePath, null, "TIFF");
 
                     //view
                     IRasterLayer resultRstLayer = new RasterLayerClass();
                     resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
+                    //假如像素值只有1,2,4,8,16,32,64,128 则使用唯一值渲染 有点麻烦没写
+                    //否则说明存在未定向的流向 使用默认渲染(RasterColorStretchRampRender)?
+                    //IRasterUniqueValueRenderer uniqueValueRenderer = null;
+                    //if (resultRstLayer.Renderer is IRasterUniqueValueRenderer)
+                    //{
+                    //    uniqueValueRenderer = resultRstLayer.Renderer as IRasterUniqueValueRenderer;
+                    //}
+                    //else
+                    //{
+                    //    uniqueValueRenderer = new RasterUniqueValueRendererClass();
+                    //}
+                    
+                    //resultRstLayer.Renderer = uniqueValueRenderer as IRasterRenderer;
+
                     ILayer resultLayer = resultRstLayer as ILayer;
-                    resultLayer.Name = "FlowDirection";
+                    resultLayer.Name = uniqueFileTime;
                     axMapControl1.Map.AddLayer(resultLayer);
                     //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
                     axMapControl1.ActiveView.Refresh();
@@ -4231,19 +4253,27 @@ namespace MapControlApplication1_hhx
                     IGeoDataset pGeoOutput = hydrologyOp.FlowAccumulation(geoDataset, missing);
                     //save
                     //DeleteDir(@"d:\hhx\hydrology");
-                    if (File.Exists(@"d:\hhx\hydrology\flowAccumulation.tif"))
+                    string rootPath = @"d:\hhx\hydrology";
+                    string fileName = "flowAccumulation";
+                    //取名后缀+时间(年 月 日 时 分 秒) 除非时间坏了或者多台机器时间不一致 不然应该不会重
+                    string nowTime = System.DateTime.Now.ToLocalTime().ToString();
+                    string nowtimestr = System.Text.RegularExpressions.Regex.Replace(nowTime, @"[^0-9]+", "");
+                    string uniqueFileTime = fileName + nowtimestr;
+                    string uniqueFileTimeWithSuffix = uniqueFileTime + ".tif";
+                    string savePath = System.IO.Path.Combine(rootPath, uniqueFileTimeWithSuffix);
+                    if (File.Exists(savePath))
                     {
-                        File.Delete(@"d:\hhx\hydrology\flowAccumulation.tif");
+                        File.Delete(savePath);
                     }
 
                     ISaveAs saveAs = pGeoOutput as ISaveAs;
-                    saveAs.SaveAs(@"d:\hhx\hydrology\flowAccumulation.tif", null, "TIFF");
+                    saveAs.SaveAs(savePath, null, "TIFF");
 
                     //view
                     IRasterLayer resultRstLayer = new RasterLayerClass();
                     resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
                     ILayer resultLayer = resultRstLayer as ILayer;
-                    resultLayer.Name = "FlowAccumulation";
+                    resultLayer.Name = uniqueFileTime;
                     axMapControl1.Map.AddLayer(resultLayer);
                     //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
                     axMapControl1.ActiveView.Refresh();
@@ -4285,19 +4315,26 @@ namespace MapControlApplication1_hhx
                     IGeoDataset pGeoOutput = hydrologyOp.Sink(geoDataset);
                     //save
                     //DeleteDir(@"d:\hhx\hydrology");
-                    if (File.Exists(@"d:\hhx\hydrology\sink.tif"))
+                    string rootPath = @"d:\hhx\hydrology";
+                    string fileName = "sink";
+                    string nowTime = System.DateTime.Now.ToLocalTime().ToString();
+                    string nowtimestr = System.Text.RegularExpressions.Regex.Replace(nowTime, @"[^0-9]+", "");
+                    string uniqueFileTime = fileName + nowtimestr;
+                    string uniqueFileTimeWithSuffix = uniqueFileTime + ".tif";
+                    string savePath = System.IO.Path.Combine(rootPath, uniqueFileTimeWithSuffix);
+                    if (File.Exists(savePath))
                     {
-                        File.Delete(@"d:\hhx\hydrology\sink.tif");
+                        File.Delete(savePath);
                     }
 
                     ISaveAs saveAs = pGeoOutput as ISaveAs;
-                    saveAs.SaveAs(@"d:\hhx\hydrology\sink.tif", null, "TIFF");
+                    saveAs.SaveAs(savePath, null, "TIFF");
 
                     //view
                     IRasterLayer resultRstLayer = new RasterLayerClass();
                     resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
                     ILayer resultLayer = resultRstLayer as ILayer;
-                    resultLayer.Name = "sink";
+                    resultLayer.Name = uniqueFileTime;
                     axMapControl1.Map.AddLayer(resultLayer);
                     //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
                     axMapControl1.ActiveView.Refresh();
@@ -4331,13 +4368,20 @@ namespace MapControlApplication1_hhx
                 double zLimit = 0;
                 if(zLimitString!="" && zLimitString!=null)
                 {
-                    zLimit = double.Parse(zLimitString);
-                    if(zLimit <= 0)
+                    if (double.TryParse(zLimitString, out zLimit))
                     {
-                        MessageBox.Show("Z Limit must greater than 0!");
+                        if (zLimit <= 0)
+                        {
+                            MessageBox.Show("Z Limit must greater than 0!");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Z Limit must be digit!");
                         return;
                     }
-                }
+                }//here we allow empty z limit 
                 
                 if (layer is IRasterLayer)
                 {
@@ -4358,19 +4402,26 @@ namespace MapControlApplication1_hhx
                  
                     //save
                     //DeleteDir(@"d:\hhx\hydrology");
-                    if (File.Exists(@"d:\hhx\hydrology\fillDEM.tif"))
+                    string rootPath = @"d:\hhx\hydrology";
+                    string fileName = "fillDEM";
+                    string nowTime = System.DateTime.Now.ToLocalTime().ToString();
+                    string nowtimestr = System.Text.RegularExpressions.Regex.Replace(nowTime, @"[^0-9]+", "");
+                    string uniqueFileTime = fileName + nowtimestr;
+                    string uniqueFileTimeWithSuffix = uniqueFileTime + ".tif";
+                    string savePath = System.IO.Path.Combine(rootPath, uniqueFileTimeWithSuffix);
+                    if (File.Exists(savePath))
                     {
-                        File.Delete(@"d:\hhx\hydrology\fillDEM.tif");
+                        File.Delete(savePath);
                     }
 
                     ISaveAs saveAs = pGeoOutput as ISaveAs;
-                    saveAs.SaveAs(@"d:\hhx\hydrology\fillDEM.tif", null, "TIFF");
+                    saveAs.SaveAs(savePath, null, "TIFF");
 
                     //view
                     IRasterLayer resultRstLayer = new RasterLayerClass();
                     resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
                     ILayer resultLayer = resultRstLayer as ILayer;
-                    resultLayer.Name = "fillDEM";
+                    resultLayer.Name = uniqueFileTime;
                     axMapControl1.Map.AddLayer(resultLayer);
                     //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
                     axMapControl1.ActiveView.Refresh();
@@ -4403,12 +4454,21 @@ namespace MapControlApplication1_hhx
                 double streamLimit = 0;
                 if (streamLimitString != "" && streamLimitString != null)
                 {
-                    streamLimit = double.Parse(streamLimitString);
-                    if (streamLimit <= 0)
+                    //streamLimit = double.Parse(streamLimitString);
+                    if (double.TryParse(streamLimitString, out streamLimit))
                     {
-                        MessageBox.Show("Limit value must greater than 0!");
-                        return;
+                        if (streamLimit <= 0)
+                        {
+                            MessageBox.Show("Limit value must greater than 0!");
+                            return;
+                        }
+
                     }
+                    else
+                    {
+                        MessageBox.Show("Limit value must be digit!");
+                        return;
+                    }     
                 }
                 else
                 {
@@ -4452,19 +4512,26 @@ namespace MapControlApplication1_hhx
 
                     //save
                     //DeleteDir(@"d:\hhx\hydrology");
-                    if (File.Exists(@"d:\hhx\hydrology\StreamNet.tif"))
+                    string rootPath = @"d:\hhx\hydrology";
+                    string fileName = "streamNet";
+                    string nowTime = System.DateTime.Now.ToLocalTime().ToString();
+                    string nowtimestr = System.Text.RegularExpressions.Regex.Replace(nowTime, @"[^0-9]+", "");
+                    string uniqueFileTime = fileName + nowtimestr;
+                    string uniqueFileTimeWithSuffix = uniqueFileTime + ".tif";
+                    string savePath = System.IO.Path.Combine(rootPath, uniqueFileTimeWithSuffix);
+                    if (File.Exists(savePath))
                     {
-                        File.Delete(@"d:\hhx\hydrology\StreamNet.tif");
+                        File.Delete(savePath);
                     }
 
                     ISaveAs saveAs = pGeoOutput as ISaveAs;
-                    saveAs.SaveAs(@"d:\hhx\hydrology\StreamNet.tif", null, "TIFF");
+                    saveAs.SaveAs(savePath, null, "TIFF");
 
                     //view
                     IRasterLayer resultRstLayer = new RasterLayerClass();
                     resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
                     ILayer resultLayer = resultRstLayer as ILayer;
-                    resultLayer.Name = "StreamNet";
+                    resultLayer.Name = uniqueFileTime;
                     axMapControl1.Map.AddLayer(resultLayer);
                     //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
                     axMapControl1.ActiveView.Refresh();
@@ -4514,13 +4581,21 @@ namespace MapControlApplication1_hhx
                     //得到的是个featureclass 怎么保存啊?
                     //NOT use使用IFeatureDataConverter.ConvertFeatureClass方法
                     //Converts a featuredataset to a Personal Geodatabase/Geodatabase featuredataset.
-                    SaveFeatureClassToShapefile(pGeoOutput as IFeatureClass, @"d:\hhx\hydrology");
+                    string rootPath = @"d:\hhx\hydrology";
+                    string fileName = "streamFeature";
+                    string nowTime = System.DateTime.Now.ToLocalTime().ToString();
+                    string nowtimestr = System.Text.RegularExpressions.Regex.Replace(nowTime, @"[^0-9]+", "");
+                    string uniqueFileTime = fileName + nowtimestr;
+                    //string uniqueFileTimeWithSuffix = uniqueFileTime + ".tif";
+                    //string savePath = System.IO.Path.Combine(rootPath, uniqueFileTimeWithSuffix);
+                    //这个没办法对输出结果命名 只能指定输出 文件夹
+                    SaveFeatureClassToShapefile(pGeoOutput as IFeatureClass, rootPath);
 
                     //view
                     IFeatureLayer featureLayer = new FeatureLayerClass();
                     featureLayer.FeatureClass = pGeoOutput as IFeatureClass;
                     ILayer resultLayer = featureLayer as ILayer;
-                    resultLayer.Name = "StreamFeature";
+                    resultLayer.Name = uniqueFileTime;
                     axMapControl1.Map.AddLayer(resultLayer);
                     //axMapControl1.ActiveView.Extent = resultLayer.AreaOfInterest;
                     axMapControl1.ActiveView.Refresh();
