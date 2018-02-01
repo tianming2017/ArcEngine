@@ -156,6 +156,8 @@ namespace MapControlApplication1_hhx
                 double[] histo = rasterBand.Histogram.Counts as double[];
 
                 //？求maxCount 为什么不用 rasterBand.Statistics.Maximum呢？
+                //maxCount是某个像素值的个数最大值
+                //rasterBand.Statistics.Maximum 应该是像素的最大值
                 //计算最大象元数
                 int maxCount = (int)histo[0];
                 for (int j = 0; j < histo.Length; j++)

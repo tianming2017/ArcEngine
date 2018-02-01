@@ -59,7 +59,6 @@ namespace MapControlApplication1_hhx
             //色带初始化
             m_FromColor = Color.Red;    //初始化色块颜色（左）
             m_ToColor = Color.Blue;     //初始化色块颜色（右）
-            //！！！下面这句话以后取消注释！！！
             RefreshColors(m_FromColor,m_ToColor);
 
         }
@@ -795,13 +794,14 @@ namespace MapControlApplication1_hhx
                     //IRasterCatalog rasterCatalog = rasterWorkspaceEx.CreateRasterCatalog(rasCatalogName, fields, "SHAPE", "RASTER", "DEFAULTS");
                     //MessageBox.Show(rasterCatalog.RasterSpatialReference.Name.ToString());
 
-
-
                     //将新创建的栅格目录添加到下拉列表中，并设置为当前栅格目录
                     cmb_LoadRstCatalog.Items.Add(rasCatalogName);
                     cmb_LoadRstCatalog.SelectedIndex = cmb_LoadRstCatalog.Items.Count - 1;
                     cmb_ImportRstCatalog.Items.Add(rasCatalogName);
                     cmb_ImportRstCatalog.SelectedIndex = cmb_ImportRstCatalog.Items.Count - 1;
+                    cmb_MosaicRstCatalog.Items.Add(rasCatalogName);
+                    cmb_MosaicRstCatalog.SelectedIndex = cmb_MosaicRstCatalog.Items.Count - 1;
+
                     cmb_LoadRstDataset.Items.Clear();
                     cmb_LoadRstDataset.Text = "";
                 }
@@ -1584,7 +1584,7 @@ namespace MapControlApplication1_hhx
                 //！！！注意 目前只有一个layer，以后需要测试 这个代码，先假装是对的！！！
 
                 //根据cmbLayer的index（因为是按顺序加的） 或者 name(此方法需要全称，不能用去掉SDE前缀的) 得到layer
-                //方法1 index  要对statistics 那一项特殊考虑，那项第0项是 全部波段
+                //方法1 index  
                 //int layerIndex = cmbLayer.SelectedIndex;
                 //ILayer layer = axMapControl1.Map.get_Layer(layerIndex);
                 //方法2 name（全称）
@@ -1933,6 +1933,25 @@ namespace MapControlApplication1_hhx
                 if (layer is IRasterLayer)
                 {
                     IRasterLayer rasterLayer = layer as IRasterLayer;
+                    // 其实这里应该先要确保已经统计过多波段了 后面的操作都是基于这一点的
+                    IRaster2 raster2 = rasterLayer.Raster as IRaster2;
+                    IRasterDataset rasterDataset = raster2.RasterDataset;
+                    IRasterBandCollection rasterBandCollection = rasterDataset as IRasterBandCollection;
+                    int bandCount = rasterBandCollection.Count;
+                    for (int i = 0; i < bandCount; i++)
+                    {
+                        IRasterBand rasterBand = rasterBandCollection.Item(i);
+                        //代码填空，计算该波段的histogram（tips：类似于计算statistics）
+                        bool hasStat = false;
+                        rasterBand.HasStatistics(out hasStat);
+                        if (null == rasterBand.Statistics || !hasStat || rasterBand.Histogram == null)
+                        {
+                            //转换IRasterBandEdit2接口，调用ComputeStatsHistogram方法进行波段信息统计和直方图绘制
+                            IRasterBandEdit2 rasterBandEdit = rasterBand as IRasterBandEdit2;
+                            rasterBandEdit.ComputeStatsHistogram(0);
+                        }
+                    }
+                    //
                     SelectBandsForm SelectBands = new SelectBandsForm(rasterLayer);
                     SelectBands.ShowDialog();                  
                 }
@@ -2000,7 +2019,7 @@ namespace MapControlApplication1_hhx
                         case 4://直方图均衡
                             rstStr2.StretchType = esriRasterStretchTypesEnum.esriRasterStretch_HistogramEqualize;
                             break;
-                        case 5://直方图匹配
+                        case 5://直方图匹配 这个应该还要指定rstStr2.SpecificationHistogram
                             rstStr2.StretchType = esriRasterStretchTypesEnum.esriRasterStretch_HistogramSpecification;
                             break;
                         default:
@@ -2405,8 +2424,7 @@ namespace MapControlApplication1_hhx
                     {
                         //代码填空，栅格对象转换IGeodataset接口
                         IGeoDataset geoDataset = rasterDataset as IGeoDataset;
-                        //下面这行有点让我害怕，可能出错
-                        //geoDataset = layer as IGeoDataset;
+
                         //创建多元操作组件类对象
                         IMultivariateOp mulop = new RasterMultivariateOpClass();
                         //代码填空，设定结果文件保存路径
@@ -2512,7 +2530,7 @@ namespace MapControlApplication1_hhx
                     ILayer layer3 = rasterLayer3 as ILayer;
                     axMapControl1.Map.AddLayer(layer3);
 
-                    //Redresh
+                    //Refresh
                     axMapControl1.ActiveView.Refresh();
                     axTOCControl1.Update();
                     iniCmbItems();
@@ -2761,7 +2779,6 @@ namespace MapControlApplication1_hhx
                     DeleteDir(outputFolder);
 
                     //使用Geoprocessor来创建地理数据库、栅格目录、以及加载目录到栅格目录中
-                    //本宝宝真机智~
                     ESRI.ArcGIS.Geoprocessor.Geoprocessor geoProcessor = new ESRI.ArcGIS.Geoprocessor.Geoprocessor();
 
                     //在临时文件夹中创建 个人地理数据库
@@ -2813,7 +2830,6 @@ namespace MapControlApplication1_hhx
 
                     IRasterLayer rasterLayer = new RasterLayerClass();
 
-                    //string str = outputFolder + "\\"+ outputName;//我都傻了，少了中间的斜杠...
                     rasterLayer.CreateFromFilePath(outputFolder + "\\" + outputName);//d:\hhx\mosaicResult\mosaic.tif
                     ILayer layer = rasterLayer as ILayer;
 
@@ -2826,8 +2842,6 @@ namespace MapControlApplication1_hhx
                     iniCmbItems();
                     MessageBox.Show("图像镶嵌成功", "提示");
 
-
-
                 }
                 else//方法2，SDE数据库
                 {
@@ -2838,10 +2852,15 @@ namespace MapControlApplication1_hhx
                         return;
                     }
                     IRasterWorkspaceEx rasterWorkspaceEx = workspace as IRasterWorkspaceEx;
+                    //这里应该把SDE前缀加上才能找到吧?
                     IRasterCatalog rasterCatalog = rasterWorkspaceEx.OpenRasterCatalog(catalogName);
+                    //rasterCatalog = rasterWorkspaceEx.OpenRasterCatalog("SDE." + catalogName);
 
                     string outputFolder = @"d:\hhx\mosaicResult";//略有改动
                     string outputName = "mosaic.tif";
+
+                    //每次运行前都删除掉 旧的数据库和 旧的结果文件,否则已经存在数据库情况下，再建立一个会报错...
+                    DeleteDir(outputFolder);
 
                     //把栅格目录中所有栅格图像镶嵌成为 一个栅格图像/栅格数据集
                     IMosaicRaster mosaicRaster = new MosaicRasterClass();
@@ -2855,20 +2874,16 @@ namespace MapControlApplication1_hhx
                     IWorkspaceFactory wsf = new RasterWorkspaceFactoryClass();
                     IWorkspace wsOutput = wsf.OpenFromFile(outputFolder, 0);
 
-                    //自己新增，每次运行前都删除掉 旧的数据库和 旧的结果文件,否则已经存在数据库情况下，再建立一个会报错...
-                    DeleteDir(outputFolder);
-
                     //代码填空，保存结果数据集，并在图层中加载显示
                     ISaveAs2 saveas = mosaicRaster as ISaveAs2;
-                    //saveas.SaveAs(outputName, wsOutput, "TIFF");
+                    
                     //下面这句话会报错？
                     //完成该操作所需的数据还不可使用
-                    saveas.SaveAs("d:/hhx/mosaicResult/mosaic.tif", null, "TIFF");
+                    saveas.SaveAs(outputFolder, wsOutput, "TIFF");
                     //saveas.SaveAsRasterDataset("d:/hhx/mosaicResult/mosaic.tif", null, "TIFF", null);
 
                     IRasterLayer rasterLayer = new RasterLayerClass();
 
-                    //string str = outputFolder + "\\"+ outputName;//我都傻了，少了中间的斜杠...
                     rasterLayer.CreateFromFilePath(outputFolder + "\\" + outputName);//d:\hhx\mosaicResult\mosaic.tif
                     ILayer layer = rasterLayer as ILayer;
 
@@ -3172,7 +3187,6 @@ namespace MapControlApplication1_hhx
                     ////string outputPath = @"d:\hhx\slope\slope.afr";
                     ////DeleteDir(@"d:\hhx\slope");
 
-                    ////开始我的表演
                     ISurfaceOp2 surfaceOp2 = new RasterSurfaceOpClass();
                     IGeoDataset resDataset = surfaceOp2.Slope(geoDataset, esriGeoAnalysisSlopeEnum.esriGeoAnalysisSlopeDegrees, 1 / 111111.0);
                     IRasterLayer resLayer = new RasterLayerClass();
@@ -3430,8 +3444,6 @@ namespace MapControlApplication1_hhx
                     #endregion
                     //加载显示邻域分析 处理后的栅格图像
                     IRasterLayer resultRstLayer = new RasterLayerClass();
-                    //【注意】下面这行很关键~~~pGeoOutput是内存中执行后产生的 而IRaster是对栅格数据在内存中的表示
-                    //要是把pGeoOutput 转成 IRasterDataset 就会是null
                     resultRstLayer.CreateFromRaster(pGeoOutput as IRaster);
                     ILayer resultLayer = resultRstLayer as ILayer;
                     axMapControl1.Map.AddLayer(resultLayer);

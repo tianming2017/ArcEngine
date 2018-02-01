@@ -38,7 +38,6 @@ namespace MapControlApplication1_hhx
         public SelectBandsForm(IRasterLayer rstlayer)
         { 
             //代码填空，波段选择窗体的实现
-            //傻了，这句话没写
             InitializeComponent();
             //基本操作
             this.m_rstlayer = rstlayer;
